@@ -21,7 +21,7 @@ enum Language: String {
   case Russian = "Russian"
 }
 
-final class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   // MARK: - Fields
   private let commentLabel = UILabel()
@@ -165,15 +165,12 @@ final class WelcomeViewController: UIViewController {
     guard let button = sender as? UIButton else { return }
     button.isEnabled = false
     
-    button.snp.makeConstraints { make in
-      //      make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(30)
-    }
     button.layer.cornerRadius = Const.Sizes.buttonCornerRadiusPressed
     
     button.backgroundColor = UIColor(
-      red: 0.99,
-      green: 0.99,
-      blue: 0.99,
+      red: 0.85,
+      green: 0.85,
+      blue: 0.85,
       alpha: 0.8
     )
     
@@ -181,10 +178,6 @@ final class WelcomeViewController: UIViewController {
       button.alpha = 1
       button.layer.cornerRadius = Const.Sizes.buttonCornerRadius
       button.backgroundColor = .white
-      button.snp.makeConstraints { make in
-        //        make.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(24)
-        //        make.center.equalTo(self.view.center)
-      }
     }) { completion in
       button.isEnabled = true
     }
@@ -275,7 +268,7 @@ final class WelcomeViewController: UIViewController {
   }
   
   @objc private func incrementButtonPressed(sender: UIView?) {
-    value += 9
+    value += 1
     
     buttonPressed(sender: sender)
   }
