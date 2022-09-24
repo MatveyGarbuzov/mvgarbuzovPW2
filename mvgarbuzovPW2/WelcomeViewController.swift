@@ -24,13 +24,18 @@ enum Language: String {
 final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   // MARK: - Fields
+  private let commentView = UIView()
+  
   private let commentLabel = UILabel()
   private let valueLabel = UILabel()
   
   private var horizontalStack = UIStackView()
+  private var buttonsStackView = UIStackView()
   
   private let incrementButton = UIButton()
   private var localizationButton = UIButton()
+  
+  private let colorPaletteView = ColorPaletteView()
   
   private var value: Int = 0
   private var language = Language.Russian
@@ -43,17 +48,36 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   private func setupView() {
     view.backgroundColor = .systemGray6
+    
+    commentView.isHidden = true
+    colorPaletteView.isHidden = true
+    
+    
     setupIncrementButton()
     setupLocalizationButton()
     setupCenterButtons()
     setupValueLabel()
     setupCommentView()
     setupMenuButtons()
+    setupColorControlSV()
     
     updateUI()
   }
   
   // MARK: - Private func
+  
+  private func setupColorControlSV() {
+    view.addSubview(colorPaletteView)
+    colorPaletteView.isHidden = true
+    colorPaletteView.backgroundColor = .red
+    
+    colorPaletteView.snp.makeConstraints { make in
+      make.top.equalTo(incrementButton.snp.bottom).offset(8)
+      make.leading.equalToSuperview().offset(24)
+      make.trailing.equalToSuperview().offset(-24)
+      make.bottom.equalTo(buttonsStackView.snp.top).offset(8)
+    }
+  }
   
   // Setup default language in app
   private func setupLanguage() {
@@ -106,7 +130,6 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   }
   
   private func setupCommentView() {
-    let commentView = UIView()
     commentView.backgroundColor = UIColor.white
     commentView.layer.cornerRadius = 12
     
@@ -205,10 +228,11 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   private func setupMenuButtons() {
     let colorButton = makeMenuButton(title: "🎨")
+    colorButton.addTarget(self, action: #selector(paletteButtonPressed), for: .touchUpInside)
     let noteButton = makeMenuButton(title: "📝")
     let newsButton = makeMenuButton(title: "📰")
     
-    let buttonsStackView = makeHorizontalStack(
+    buttonsStackView = makeHorizontalStack(
       views: [colorButton, noteButton, newsButton]
     )
     
@@ -272,45 +296,10 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     
     buttonPressed(sender: sender)
   }
-}
-
-// Extension makes shadow for Views
-extension CALayer {
-  func applyShadow() {
-    shadowColor = UIColor.darkGray.cgColor
-    shadowOpacity = 0.1
-    shadowOffset = .zero
-    shadowRadius = 10
-  }
-}
-
-// Extension for custom button cofiguration
-extension UIButton {
-  func configure(title: String) {
-    setTitle(title, for: .normal)
-    setTitleColor(UIColor.black, for: .normal)
-    layer.cornerRadius = Const.Sizes.buttonCornerRadius
-    titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
-    backgroundColor = UIColor.white
-    layer.applyShadow()
-  }
-}
-
-// Extension for text localization
-extension String {
-  var localized: String {
-    let lang = currentLanguage()
-    let path = Bundle.main.path(forResource: lang, ofType: "lproj")
-    let bundle = Bundle(path: path!)
-    return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
-  }
   
-  func saveLanguage(_ lang: String) {
-    UserDefaults.standard.set(lang, forKey: "Locale")
-    UserDefaults.standard.synchronize()
-  }
-  
-  func currentLanguage() -> String {
-    return UserDefaults.standard.string(forKey: "Locale") ?? ""
+  @objc private func paletteButtonPressed(sender: UIView?) {
+    colorPaletteView.isHidden = false
+    
+    impactFeedbackGenerator()
   }
 }
