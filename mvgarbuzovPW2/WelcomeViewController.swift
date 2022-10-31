@@ -49,8 +49,8 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   private func setupView() {
     view.backgroundColor = .systemGray6
     
-    commentView.isHidden = true
-    colorPaletteView.isHidden = true
+//    commentView.isHidden = true
+//    colorPaletteView.isHidden = true
     
     
     setupIncrementButton()
@@ -70,12 +70,12 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     view.addSubview(colorPaletteView)
     colorPaletteView.isHidden = true
     colorPaletteView.backgroundColor = .red
-    
+
     colorPaletteView.snp.makeConstraints { make in
       make.top.equalTo(incrementButton.snp.bottom).offset(8)
       make.leading.equalToSuperview().offset(24)
       make.trailing.equalToSuperview().offset(-24)
-      make.bottom.equalTo(buttonsStackView.snp.top).offset(8)
+      make.bottom.equalTo(buttonsStackView.snp.top).offset(-8)
     }
   }
   
@@ -298,8 +298,9 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   }
   
   @objc private func paletteButtonPressed(sender: UIView?) {
-    colorPaletteView.isHidden = false
+    colorPaletteView.isHidden.toggle()
     
     impactFeedbackGenerator()
   }
 }
+
