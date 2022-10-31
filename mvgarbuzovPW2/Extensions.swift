@@ -48,3 +48,17 @@ extension String {
     return UserDefaults.standard.string(forKey: "Locale") ?? ""
   }
 }
+
+enum Const {
+  static let animationDuration: Double = 0.5
+  enum Sizes {
+    static let buttonCornerRadius: CGFloat = 12
+    static let buttonCornerRadiusPressed: CGFloat = 18
+  }
+}
+
+// Enum for app localization
+enum Language: String {
+  case English = "English"
+  case Russian = "Russian"
+}

@@ -23,8 +23,6 @@ final class ColorPaletteView: UIControl {
   }
   
   private func setupView() {
-    print("ColorPaletteView setup func.")
-    
     let redControl = ColorSliderView(
       colorName: "R", value: Float(chosenColor.redComponent))
     let greenControl = ColorSliderView(
@@ -108,12 +106,9 @@ extension ColorPaletteView {
     }
     
     private func setupView() {
-      print("colorSliderView setup func.")
-      
       let stackView = UIStackView(arrangedSubviews: [colorLabel, slider])
       stackView.axis = .horizontal
       stackView.spacing = 8
-      stackView.backgroundColor = .green
       
       addSubview(stackView)
       stackView.snp.makeConstraints { make in

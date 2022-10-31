@@ -8,19 +8,6 @@
 import UIKit
 import SnapKit
 
-enum Const {
-  static let animationDuration: Double = 0.5
-  enum Sizes {
-    static let buttonCornerRadius: CGFloat = 12
-    static let buttonCornerRadiusPressed: CGFloat = 18
-  }
-}
-
-enum Language: String {
-  case English = "English"
-  case Russian = "Russian"
-}
-
 final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   // MARK: - Fields
@@ -68,11 +55,8 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   private func setupColorControlSV() {
     view.addSubview(colorPaletteView)
-//    colorPaletteView.isHidden = true
     colorPaletteView.alpha = 0
     colorPaletteView.isEnabled = false
-    
-    colorPaletteView.backgroundColor = .red
 
     colorPaletteView.snp.makeConstraints { make in
       make.top.equalTo(incrementButton.snp.bottom).offset(8)
@@ -307,6 +291,13 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
       self.colorPaletteView.alpha = self.colorPaletteView.isEnabled ? 0 : 1
     }
     self.colorPaletteView.isEnabled.toggle()
+    changeColor(colorPaletteView)
+  }
+  
+  @objc private func changeColor(_ slider: ColorPaletteView) {
+    UIView.animate(withDuration: 0.5) {
+      self.view.backgroundColor = slider.chosenColor
+    }
   }
 }
 
