@@ -68,7 +68,10 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   private func setupColorControlSV() {
     view.addSubview(colorPaletteView)
-    colorPaletteView.isHidden = true
+//    colorPaletteView.isHidden = true
+    colorPaletteView.alpha = 0
+    colorPaletteView.isEnabled = false
+    
     colorPaletteView.backgroundColor = .red
 
     colorPaletteView.snp.makeConstraints { make in
@@ -298,9 +301,12 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   }
   
   @objc private func paletteButtonPressed(sender: UIView?) {
-    colorPaletteView.isHidden.toggle()
+    buttonPressed(sender: sender)
     
-    impactFeedbackGenerator()
+    UIView.animate(withDuration: Const.animationDuration) {
+      self.colorPaletteView.alpha = self.colorPaletteView.isEnabled ? 0 : 1
+    }
+    self.colorPaletteView.isEnabled.toggle()
   }
 }
 

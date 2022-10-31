@@ -25,12 +25,12 @@ final class ColorPaletteView: UIControl {
   private func setupView() {
     print("ColorPaletteView setup func.")
     
-    let redControl = ColorSliderView(colorName: "R", value:
-                                      Float(chosenColor.redComponent))
-    let greenControl = ColorSliderView(colorName: "G", value:
-                                        Float(chosenColor.greenComponent))
-    let blueControl = ColorSliderView(colorName: "B", value:
-                                        Float(chosenColor.blueComponent))
+    let redControl = ColorSliderView(
+      colorName: "R", value: Float(chosenColor.redComponent))
+    let greenControl = ColorSliderView(
+      colorName: "G", value: Float(chosenColor.greenComponent))
+    let blueControl = ColorSliderView(
+      colorName: "B", value: Float(chosenColor.blueComponent))
     redControl.tag = 0
     greenControl.tag = 1
     blueControl.tag = 2
@@ -47,7 +47,9 @@ final class ColorPaletteView: UIControl {
                    for: .touchDragInside)
     }
     addSubview(stackView)
-    stackView.pin(to: self)
+    stackView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
   }
   
   @objc
@@ -114,8 +116,10 @@ extension ColorPaletteView {
       stackView.backgroundColor = .green
       
       addSubview(stackView)
-      stackView.pin(to: self, [.left: 12, .top: 12, .right:
-                                12, .bottom: 12])
+      stackView.snp.makeConstraints { make in
+        make.leading.top.equalToSuperview().offset(12)
+        make.trailing.bottom.equalToSuperview().offset(-12)
+      }
     }
     
     @objc private func sliderMoved(_ slider: UISlider) {
