@@ -23,6 +23,7 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   private var localizationButton = UIButton()
   
   private let colorPaletteView = ColorPaletteView()
+  private let notesViewController = NotesViewController()
   
   private var value: Int = 0
   private var language = Language.Russian
@@ -35,10 +36,6 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   
   private func setupView() {
     view.backgroundColor = .systemGray6
-    
-//    commentView.isHidden = true
-//    colorPaletteView.isHidden = true
-    
     
     setupIncrementButton()
     setupLocalizationButton()
@@ -57,13 +54,17 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     view.addSubview(colorPaletteView)
     colorPaletteView.alpha = 0
     colorPaletteView.isEnabled = false
-
+    
     colorPaletteView.snp.makeConstraints { make in
       make.top.equalTo(incrementButton.snp.bottom).offset(8)
       make.leading.equalToSuperview().offset(24)
       make.trailing.equalToSuperview().offset(-24)
       make.bottom.equalTo(buttonsStackView.snp.top).offset(-8)
     }
+  }
+  
+  private func setupNotesView() {
+    
   }
   
   // Setup default language in app
@@ -217,6 +218,8 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     let colorButton = makeMenuButton(title: "🎨")
     colorButton.addTarget(self, action: #selector(paletteButtonPressed), for: .touchUpInside)
     let noteButton = makeMenuButton(title: "📝")
+    noteButton.addTarget(self, action:
+        #selector(notesButtonPressed), for: .touchUpInside)
     let newsButton = makeMenuButton(title: "📰")
     
     buttonsStackView = makeHorizontalStack(
@@ -292,6 +295,18 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     }
     self.colorPaletteView.isEnabled.toggle()
     changeColor(colorPaletteView)
+  }
+  
+  @objc func notesButtonPressed() {
+    impactFeedbackGenerator()
+    
+    let notesViewController = NotesViewController()
+    if let sheetController = notesViewController.sheetPresentationController {
+      sheetController.detents = [.large()]
+      sheetController.preferredCornerRadius = 20
+      sheetController.prefersGrabberVisible = true
+    }
+    present(notesViewController, animated: true, completion: nil)
   }
   
   @objc private func changeColor(_ slider: ColorPaletteView) {
