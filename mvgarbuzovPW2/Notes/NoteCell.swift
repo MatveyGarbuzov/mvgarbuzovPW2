@@ -18,6 +18,7 @@ final class NoteCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
     setupView()
+    backgroundColor = .systemGray6
   }
   
   required init?(coder: NSCoder) {
@@ -28,13 +29,16 @@ final class NoteCell: UITableViewCell {
     addSubview(textView)
     
     textView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
+      make.leading.equalToSuperview().offset(16)
+      make.trailing.equalToSuperview().offset(-16)
+      make.top.equalToSuperview().offset(5)
+      make.height.equalToSuperview()
     }
   }
   
   func configure(note: ShortNote) {
     textView.text = note.text
     textView.textColor = .black
-    textView.backgroundColor = .green
+    textView.backgroundColor = .clear
   }
 }
