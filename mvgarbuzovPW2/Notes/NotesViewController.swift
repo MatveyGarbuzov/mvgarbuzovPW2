@@ -82,7 +82,7 @@ extension NotesViewController: UITableViewDataSource {
       if let addNewCell = tableView.dequeueReusableCell(
         withIdentifier: AddNoteCell.reuseIdentifier, for: indexPath) as? AddNoteCell {
         addNewCell.delegate = self
-
+        addNewCell.selectionStyle = .none
         return addNewCell
       }
       
@@ -108,7 +108,7 @@ extension NotesViewController: AddNoteDelegate {
 extension NotesViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt
                  indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    if indexPath.row != 0 {  // Disable AddNewCell deleteAction
+    if indexPath.section != 0 {  // Disable AddNewCell deleteAction
       let deleteAction = UIContextualAction(
         style: .destructive,
         title: .none
