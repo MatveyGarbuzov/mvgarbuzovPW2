@@ -300,9 +300,9 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   @objc func notesButtonPressed() {
     impactFeedbackGenerator()
     
-    let notesViewController = NotesViewController()
+    let notesViewController = UINavigationController(rootViewController: NotesViewController())
     if let sheetController = notesViewController.sheetPresentationController {
-      sheetController.detents = [.large()]
+      sheetController.detents = [.medium(), .large()]
       sheetController.preferredCornerRadius = 20
       sheetController.prefersGrabberVisible = true
     }

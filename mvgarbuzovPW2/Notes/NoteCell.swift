@@ -38,6 +38,8 @@ final class NoteCell: UITableViewCell {
   
   func configure(note: ShortNote) {
     textView.text = note.text
+    textView.font = .systemFont(ofSize: 16, weight: .regular)
+    textView.textContainer.maximumNumberOfLines = 1
     textView.textColor = .black
     textView.backgroundColor = .clear
   }

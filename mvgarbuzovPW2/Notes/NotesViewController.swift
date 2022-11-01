@@ -48,6 +48,12 @@ final class NotesViewController: UIViewController {
   
   private func setupNavBar() {
     self.title = "Notes"
+    
+    let closeButton = UIButton(type: .close)
+    closeButton.addTarget(self, action: #selector(dismissViewController(_:)),
+                          for: .touchUpInside)
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+      customView: closeButton)
   }
   
   private func handleDelete(indexPath: IndexPath) {
