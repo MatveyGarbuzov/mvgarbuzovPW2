@@ -11,11 +11,7 @@ import UIKit
 final class NotesViewController: UIViewController {
   
   private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-  private var dataSource = [
-    ShortNote(text: "a"),
-    ShortNote(text: "b"),
-    ShortNote(text: "c")
-  ]
+  private var dataSource = [ShortNote]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
