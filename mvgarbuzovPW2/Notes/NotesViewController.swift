@@ -11,7 +11,16 @@ import UIKit
 final class NotesViewController: UIViewController {
   
   private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-  private var dataSource = [ShortNote]()
+//  private var dataSource = [ShortNote]()
+  private var dataSource = [
+    ShortNote(text: "1"),
+    ShortNote(text: """
+    1
+    2
+    3
+    """),
+    ShortNote(text: "3agsdklkagsdnlgnasdjgnsak;jgnsakljgnlkajgnlsakjgndlskajngklasjnglkjsadngklsajndglkjsangdkjanslklkagsdnlgnasdjgnsak;jgnsakljgnlkajgnlsakjgndlskajngklasjnglkjsadngklsajndglkjsangdkjanslklkagsdnlgnasdjgnsak;jgnsakljgnlkajgnlsakjgndlskajngklasjnglkjsadngklsajndglkjsangdkjanslkgjnaslkdjgnaklsjdgnlaskjdgnlksajdgnlkasjgndlksajgnkljansgkljasndlkgjansglkjnaslkgjdnaslkjgnlkasjgnakldsjgnklasjgnkl")
+  ]
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -98,6 +107,23 @@ extension NotesViewController: UITableViewDataSource {
     }
     return UITableViewCell()
   }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    self.tableView.beginUpdates()
+    self.tableView.endUpdates()
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    
+    if indexPath.section != 0 {
+      if self.tableView.indexPathForSelectedRow?.row == indexPath.row {
+        return 150 // Expanded cell height
+      } else {
+        return 50 // collapsed cell height
+      }
+    }
+    return 250 // AddNewNote height
+  }
 }
 
 extension NotesViewController: AddNoteDelegate {
@@ -107,6 +133,7 @@ extension NotesViewController: AddNoteDelegate {
   }
 }
 
+// Swipe action for cells
 extension NotesViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt
                  indexPath: IndexPath) -> UISwipeActionsConfiguration? {

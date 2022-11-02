@@ -29,18 +29,15 @@ final class NoteCell: UITableViewCell {
     addSubview(textView)
     
     textView.snp.makeConstraints { make in
-      make.leading.equalToSuperview().offset(16)
-      make.trailing.equalToSuperview().offset(-16)
-      make.top.equalToSuperview().offset(5)
-      make.height.equalToSuperview()
+      make.leading.trailing.equalToSuperview().inset(16)
+      make.top.bottom.equalToSuperview().inset(5)
     }
   }
   
   func configure(note: ShortNote) {
     textView.text = note.text
     textView.font = .systemFont(ofSize: 16, weight: .regular)
-    textView.textContainer.maximumNumberOfLines = 1
     textView.textColor = .black
-    textView.backgroundColor = .clear
+    textView.backgroundColor = .red // .clear
   }
 }
