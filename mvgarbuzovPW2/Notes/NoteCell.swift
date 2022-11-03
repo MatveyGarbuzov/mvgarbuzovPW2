@@ -10,7 +10,7 @@ import UIKit
 
 final class NoteCell: UITableViewCell {
   
-  private var textView = UITextView()
+  private var textView = UILabel() // UITextView()
   
   static let reuseIdentifier = "NoteCell"
   
@@ -39,5 +39,6 @@ final class NoteCell: UITableViewCell {
     textView.font = .systemFont(ofSize: 16, weight: .regular)
     textView.textColor = .black
     textView.backgroundColor = .red // .clear
+    textView.numberOfLines = 0
   }
 }

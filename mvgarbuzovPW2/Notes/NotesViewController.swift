@@ -46,6 +46,8 @@ final class NotesViewController: UIViewController {
     tableView.keyboardDismissMode = .onDrag
     tableView.dataSource = self
     tableView.delegate = self
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = 300
     tableView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
@@ -106,23 +108,6 @@ extension NotesViewController: UITableViewDataSource {
       }
     }
     return UITableViewCell()
-  }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    self.tableView.beginUpdates()
-    self.tableView.endUpdates()
-  }
-  
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    
-    if indexPath.section != 0 {
-      if self.tableView.indexPathForSelectedRow?.row == indexPath.row {
-        return 150 // Expanded cell height
-      } else {
-        return 50 // collapsed cell height
-      }
-    }
-    return 250 // AddNewNote height
   }
 }
 
