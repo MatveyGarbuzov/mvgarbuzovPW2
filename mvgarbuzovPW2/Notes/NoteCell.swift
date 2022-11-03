@@ -38,6 +38,7 @@ final class NoteCell: UITableViewCell {
     textView.font = .systemFont(ofSize: 16, weight: .regular)
     textView.textColor = .black
     textView.backgroundColor = .clear
+//    textView.textContainer.maximumNumberOfLines = 0
     textView.numberOfLines = 0
   }
 }
