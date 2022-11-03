@@ -105,6 +105,27 @@ extension NotesViewController: UITableViewDataSource {
     }
     return UITableViewCell()
   }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      tableView.beginUpdates()
+      tableView.endUpdates()
+  }
+
+  func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+      tableView.beginUpdates()
+      tableView.endUpdates()
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+      if indexPath.section != 0 {
+        if self.tableView.indexPathForSelectedRow?.row == indexPath.row {
+          return UITableView.automaticDimension // Expanded size of cell
+        } else {
+          return 48 // Collapsed size of cell
+        }
+      }
+      return 250 // AddNewNote height
+    }
 }
 
 extension NotesViewController: AddNoteDelegate {
