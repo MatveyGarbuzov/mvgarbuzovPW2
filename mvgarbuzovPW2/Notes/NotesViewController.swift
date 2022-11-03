@@ -13,13 +13,9 @@ final class NotesViewController: UIViewController {
   private let tableView = UITableView(frame: .zero, style: .insetGrouped)
 //  private var dataSource = [ShortNote]()
   private var dataSource = [
-    ShortNote(text: "1"),
-    ShortNote(text: """
-    1
-    2
-    3
-    """),
-    ShortNote(text: "3agsdklkagsdnlgnasdjgnsak;jgnsakljgnlkajgnlsakjgndlskajngklasjnglkjsadngklsajndglkjsangdkjanslklkagsdnlgnasdjgnsak;jgnsakljgnlkajgnlsakjgndlskajngklasjnglkjsadngklsajndglkjsangdkjanslklkagsdnlgnasdjgnsak;jgnsakljgnlkajgnlsakjgndlskajngklasjnglkjsadngklsajndglkjsangdkjanslkgjnaslkdjgnaklsjdgnlaskjdgnlksajdgnlkasjgndlksajgnkljansgkljasndlkgjansglkjnaslkgjdnaslkjgnlkasjgnakldsjgnklasjgnkl")
+    ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu."),
+    ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu."),
+    ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu.")
   ]
   
   override func viewDidLoad() {
@@ -65,7 +61,7 @@ final class NotesViewController: UIViewController {
   
   private func handleDelete(indexPath: IndexPath) {
     dataSource.remove(at: indexPath.row)
-    tableView.reloadData()
+    tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
   }
   
   @objc func dismissViewController(_ sender: UIButton) {

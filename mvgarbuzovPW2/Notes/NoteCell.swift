@@ -29,8 +29,7 @@ final class NoteCell: UITableViewCell {
     addSubview(textView)
     
     textView.snp.makeConstraints { make in
-      make.leading.trailing.equalToSuperview().inset(16)
-      make.top.bottom.equalToSuperview().inset(5)
+      make.edges.equalToSuperview().inset(14)
     }
   }
   
@@ -38,7 +37,7 @@ final class NoteCell: UITableViewCell {
     textView.text = note.text
     textView.font = .systemFont(ofSize: 16, weight: .regular)
     textView.textColor = .black
-    textView.backgroundColor = .red // .clear
+    textView.backgroundColor = .clear
     textView.numberOfLines = 0
   }
 }
