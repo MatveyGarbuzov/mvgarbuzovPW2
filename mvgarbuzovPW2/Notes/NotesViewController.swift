@@ -11,7 +11,7 @@ import UIKit
 final class NotesViewController: UIViewController {
   
   private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-//  private var dataSource = [ShortNote]()
+  //  private var dataSource = [ShortNote]()
   private var dataSource = [
     ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu."),
     ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu."),
@@ -42,7 +42,6 @@ final class NotesViewController: UIViewController {
     tableView.keyboardDismissMode = .onDrag
     tableView.dataSource = self
     tableView.delegate = self
-    tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 300
     tableView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
@@ -107,25 +106,31 @@ extension NotesViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      tableView.beginUpdates()
-      tableView.endUpdates()
+    tableView.beginUpdates()
+    tableView.endUpdates()
   }
-
+  
   func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-      tableView.beginUpdates()
-      tableView.endUpdates()
+    tableView.beginUpdates()
+    tableView.endUpdates()
   }
-
+  
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      if indexPath.section != 0 {
-        if self.tableView.indexPathForSelectedRow?.row == indexPath.row {
-          return UITableView.automaticDimension // Expanded size of cell
-        } else {
-          return 48 // Collapsed size of cell
-        }
+    if indexPath.section != 0 {
+      if self.tableView.indexPathForSelectedRow?.row == indexPath.row {
+        //        let indexPath = tableView.indexPathForSelectedRow
+        //        let currentCell = tableView.cellForRow(at: indexPath!)! as! NoteCell
+        
+        //        print(currentCell.textView.text)
+        
+        // КОСТЫЛЬ, НО ТУТ МОЖНО СДЕЛАТЬ ВЫДВИГАЮЩИЙСЯ СНИЗУ TEXTVIEW В КОТОРЫЙ ИЗНАЧАЛЬНО БУДЕТ ПЕРЕДАВАТЬСЯ ТЕКСТ ИЗ ЯЧЕЙКИ И ЕГО МОЖНО БУДЕТ ПОМЕНЯТЬ, ПОМЕНЯВ ТЕКСТ В ЯЧЕЙКЕ
+        return UITableView.automaticDimension // Expanded size of cell
+      } else {
+        return 48 // Collapsed size of cell
       }
-      return 250 // AddNewNote height
     }
+    return 250 // AddNewNote height
+  }
 }
 
 extension NotesViewController: AddNoteDelegate {

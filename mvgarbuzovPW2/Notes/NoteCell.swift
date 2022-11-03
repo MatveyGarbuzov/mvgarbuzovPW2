@@ -10,7 +10,7 @@ import UIKit
 
 final class NoteCell: UITableViewCell {
   
-  private var textView = UILabel() // UITextView()
+  public var textView = UILabel() // UITextView()
   
   static let reuseIdentifier = "NoteCell"
   
