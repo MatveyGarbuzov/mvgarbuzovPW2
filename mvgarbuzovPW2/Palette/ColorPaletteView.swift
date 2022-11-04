@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
+protocol ChangeColorDelegate {
+  func changeColor(_ slider: ColorPaletteView)
+}
+
 final class ColorPaletteView: UIControl {
+  var delegate: ChangeColorDelegate?
   private var stackView = UIStackView()
   private(set) var chosenColor: UIColor = UIColor.systemGray6
   
@@ -76,6 +81,8 @@ final class ColorPaletteView: UIControl {
       )
     }
     sendActions(for: .touchDragInside)
+    delegate?.changeColor(self)
+    print("!")
   }
 }
 

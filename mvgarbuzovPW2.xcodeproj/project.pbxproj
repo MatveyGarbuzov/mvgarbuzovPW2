@@ -14,6 +14,7 @@
 		1C79468129114DB00033D8A5 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79468029114DB00033D8A5 /* NoteCell.swift */; };
 		1C79468329114EC70033D8A5 /* ShortNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79468229114EC70033D8A5 /* ShortNote.swift */; };
 		1C79468629115B9D0033D8A5 /* AddNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79468529115B9D0033D8A5 /* AddNoteCell.swift */; };
+		1C79468A29152CDC0033D8A5 /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79468929152CDC0033D8A5 /* NewsListViewController.swift */; };
 		1CCDBB8628D9F79F00E7DD99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDBB8528D9F79F00E7DD99 /* AppDelegate.swift */; };
 		1CCDBB8828D9F79F00E7DD99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDBB8728D9F79F00E7DD99 /* SceneDelegate.swift */; };
 		1CCDBB8A28D9F79F00E7DD99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDBB8928D9F79F00E7DD99 /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 		1C79468029114DB00033D8A5 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		1C79468229114EC70033D8A5 /* ShortNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortNote.swift; sourceTree = "<group>"; };
 		1C79468529115B9D0033D8A5 /* AddNoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteCell.swift; sourceTree = "<group>"; };
+		1C79468929152CDC0033D8A5 /* NewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
 		1CCDBB8228D9F79F00E7DD99 /* mvgarbuzovPW2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mvgarbuzovPW2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CCDBB8528D9F79F00E7DD99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CCDBB8728D9F79F00E7DD99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,14 @@
 			path = Palette;
 			sourceTree = "<group>";
 		};
+		1C79468B29152CE50033D8A5 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				1C79468929152CDC0033D8A5 /* NewsListViewController.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
 		1CCDBB7928D9F79F00E7DD99 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +109,7 @@
 				1C274AFE28DF2E4C0083DDE3 /* Extensions.swift */,
 				1C794684291150DB0033D8A5 /* Palette */,
 				1C79467F29114DA00033D8A5 /* Notes */,
+				1C79468B29152CE50033D8A5 /* News */,
 				1CCDBB8928D9F79F00E7DD99 /* ViewController.swift */,
 				1C274AF928DCEE010083DDE3 /* Localizable.strings */,
 				1CCDBB8E28D9F7A300E7DD99 /* Assets.xcassets */,
@@ -192,6 +203,7 @@
 				1C79468129114DB00033D8A5 /* NoteCell.swift in Sources */,
 				1C79467E290FF3C20033D8A5 /* NotesViewController.swift in Sources */,
 				1C79468629115B9D0033D8A5 /* AddNoteCell.swift in Sources */,
+				1C79468A29152CDC0033D8A5 /* NewsListViewController.swift in Sources */,
 				1CCDBB9A28D9F9CA00E7DD99 /* WelcomeViewController.swift in Sources */,
 				1CCDBB8628D9F79F00E7DD99 /* AppDelegate.swift in Sources */,
 				1CCDBB8828D9F79F00E7DD99 /* SceneDelegate.swift in Sources */,

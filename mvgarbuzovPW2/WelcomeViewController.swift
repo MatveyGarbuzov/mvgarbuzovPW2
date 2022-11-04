@@ -221,6 +221,8 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     noteButton.addTarget(self, action:
         #selector(notesButtonPressed), for: .touchUpInside)
     let newsButton = makeMenuButton(title: "📰")
+    newsButton.addTarget(self, action:
+        #selector(newsButtonPressed), for: .touchUpInside)
     
     buttonsStackView = makeHorizontalStack(
       views: [colorButton, noteButton, newsButton]
@@ -297,8 +299,9 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     changeColor(colorPaletteView)
   }
   
-  @objc func notesButtonPressed() {
-    impactFeedbackGenerator()
+  @objc func notesButtonPressed(sender: UIView?) {
+//    impactFeedbackGenerator()
+    buttonPressed(sender: sender)
     
     let notesViewController = UINavigationController(rootViewController: NotesViewController())
     if let sheetController = notesViewController.sheetPresentationController {
@@ -310,10 +313,26 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     present(notesViewController, animated: true, completion: nil)
   }
   
-  @objc private func changeColor(_ slider: ColorPaletteView) {
+  @objc func newsButtonPressed(sender: UIView?) {
+    buttonPressed(sender: sender)
+    
+    let newsListController = NewsListViewController()
+    navigationController?.pushViewController(newsListController, animated: true)
+  }
+  
+//  @objc private func changeColor(_ slider: ColorPaletteView) {
+//    UIView.animate(withDuration: 0.5) {
+//      self.view.backgroundColor = slider.chosenColor
+//    }
+//  }
+}
+
+extension WelcomeViewController: ChangeColorDelegate {
+  @objc func changeColor(_ slider: ColorPaletteView) {
+    print("CHANGE COLOR!")
     UIView.animate(withDuration: 0.5) {
       self.view.backgroundColor = slider.chosenColor
     }
   }
-}
 
+}
