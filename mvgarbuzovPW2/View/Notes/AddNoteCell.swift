@@ -16,9 +16,33 @@ final class AddNoteCell: UITableViewCell {
   
   static let reuseIdentifier = "AddNoteCell"
   
-  private var textView = UITextView()
+  private let textView: UITextView = {
+    let textView = UITextView()
+    textView.font = .systemFont(ofSize: 16, weight: .regular)
+    textView.textColor = .black
+    textView.backgroundColor = .clear
+    textView.isEditable = true
+    
+    return textView
+  }()
   
-  var addButton = UIButton()
+  private let addButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("Add new note", for: .normal)
+    button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+    button.setTitleColor(.systemBackground, for: .normal)
+    button.backgroundColor = .label
+    button.layer.cornerRadius = 8
+    button.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
+    button.isEnabled = true
+    button.alpha = 0.8
+    
+    button.snp.makeConstraints { make in
+      make.height.equalTo(45)
+    }
+    
+    return button
+  }()
   var delegate: AddNoteDelegate?
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -33,27 +57,6 @@ final class AddNoteCell: UITableViewCell {
   }
   
   private func setupView() {
-    print("AddNoteCell setupView")
-    textView.font = .systemFont(ofSize: 16, weight: .regular)
-    textView.textColor = .black
-    textView.backgroundColor = .clear
-    textView.isEditable = true
-    textView.snp.makeConstraints { make in
-      make.height.equalTo(150)
-    }
-    
-    addButton.setTitle("Add new note", for: .normal)
-    addButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-    addButton.setTitleColor(.systemBackground, for: .normal)
-    addButton.backgroundColor = .label
-    addButton.layer.cornerRadius = 8
-    addButton.snp.makeConstraints { make in
-      make.height.equalTo(45)
-    }
-    addButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
-    addButton.isEnabled = true
-    addButton.alpha = 0.8
-    
     let stackView = UIStackView(arrangedSubviews: [textView, addButton])
     stackView.axis = .vertical
     stackView.distribution = .fill

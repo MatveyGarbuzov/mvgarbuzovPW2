@@ -60,6 +60,25 @@ extension UIView {
   }
 }
 
+extension URLSession{
+  func getTopStories(completion: @escaping (Model.News) -> ()) {
+    guard let url = URL(
+      string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=bf6753dc8bfb47bf964993027ed431d4"
+    ) else{ return }
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+      if let data = data,
+         let news = try? JSONDecoder().decode(Model.News.self, from: data)
+      {
+        completion(news)
+      }
+      else{
+        print("Error with get top stories.")
+      }
+    }
+    task.resume()
+  }
+}
+
 enum Const {
   static let animationDuration: Double = 0.5
   enum Sizes {

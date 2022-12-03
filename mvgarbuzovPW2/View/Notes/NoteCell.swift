@@ -10,7 +10,7 @@ import UIKit
 
 final class NoteCell: UITableViewCell {
   
-  public var textView = UILabel() // UITextView()
+  private lazy var textView = UILabel() // UITextView()
   
   static let reuseIdentifier = "NoteCell"
   
@@ -25,7 +25,7 @@ final class NoteCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setupView() {
+  private func setupView() {
     addSubview(textView)
     
     textView.snp.makeConstraints { make in
