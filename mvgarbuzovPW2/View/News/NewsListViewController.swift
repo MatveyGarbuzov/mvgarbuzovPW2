@@ -56,6 +56,12 @@ final class NewsListViewController: UIViewController {
     setupUI()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(true)
+    
+    showSkeleton()
+  }
+  
   private func setupUI() {
     view.backgroundColor = .systemGray6
     configureTableView()
@@ -136,7 +142,7 @@ extension NewsListViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if isLoading {
-      return 1
+      return 4
     } else {
       return newsViewModels.count
     }
@@ -145,13 +151,13 @@ extension NewsListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if isLoading {
       if let newsCell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseIdentifier, for: indexPath) as? NewsCell{
-        newsCell.onLoadConfigure()
         return newsCell
       }
     } else {
       let viewModel = newsViewModels[indexPath.row]
       if let newsCell = tableView.dequeueReusableCell(
         withIdentifier: NewsCell.reuseIdentifier, for: indexPath) as? NewsCell {
+        hideSkeleton()
         newsCell.configure(viewModel)
         return newsCell
       }

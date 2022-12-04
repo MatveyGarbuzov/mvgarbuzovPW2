@@ -37,7 +37,6 @@ final class NewsCell: UITableViewCell {
   }
   
   func setupImageView() {
-    newsImageView.image = UIImage(named: "Landscape")
     newsImageView.layer.cornerRadius = 8
     newsImageView.layer.cornerCurve = .continuous
     newsImageView.clipsToBounds = true
@@ -52,7 +51,6 @@ final class NewsCell: UITableViewCell {
   }
   
   func setupTitleLabel() {
-    newsTitleLabel.text = "Hello"
     newsTitleLabel.font = .systemFont(ofSize: 16, weight: .medium)
     newsTitleLabel.textColor = .label
     newsTitleLabel.numberOfLines = 1
@@ -65,7 +63,6 @@ final class NewsCell: UITableViewCell {
   }
   
   func setupDescriptionLabel() {
-    newsDescriptionLabel.text = "World"
     newsDescriptionLabel.font = .systemFont(ofSize: 14, weight: .regular)
     newsDescriptionLabel.textColor = .secondaryLabel
     newsDescriptionLabel.numberOfLines = 0
