@@ -59,7 +59,9 @@ final class NewsListViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
     
-    showSkeleton()
+    if isLoading {
+      showSkeleton()
+    }
   }
   
   private func setupUI() {
