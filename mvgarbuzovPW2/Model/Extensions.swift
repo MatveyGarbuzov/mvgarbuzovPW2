@@ -5,7 +5,6 @@
 //  Created by Matvey Garbuzov on 24.09.2022.
 //
 
-import Foundation
 import UIKit
 
 // Extension makes shadow for Views
@@ -23,7 +22,7 @@ extension UIButton {
   func configure(title: String) {
     setTitle(title, for: .normal)
     setTitleColor(UIColor.black, for: .normal)
-    layer.cornerRadius = Const.Sizes.buttonCornerRadius
+    layer.cornerRadius = Const.cornerRadiusOfButton
     titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
     backgroundColor = UIColor.white
     layer.applyShadow()
@@ -79,12 +78,30 @@ extension URLSession{
   }
 }
 
+// MARK: CONSTANTS
 enum Const {
+  // Main Screen
+  static let sizeOfCenterButtonsOnMainScreen: CGFloat = 48.0
+  static let insetOfCenterButtonsOnMainScreen: CGFloat = 24.0
+  static let cornerRadiusOfButton: CGFloat = 12.0
+  static let cornerRadiusOfButtonPressed: CGFloat = 18.0
+  
+  static let cornerRadiusOfCommentView: CGFloat = 12.0
+  static let insetOfCommentView: CGFloat = 24.0
+  
   static let animationDuration: Double = 0.5
-  enum Sizes {
-    static let buttonCornerRadius: CGFloat = 12
-    static let buttonCornerRadiusPressed: CGFloat = 18
-  }
+  
+  static let sizeOfFontValueLabel: CGFloat = 40.0
+  static let sizeOfFontCommentLabel: CGFloat = 14.0
+  
+  static let spacingOfHorizontalStack: CGFloat = 12.0
+  static let bottomOffsetOfHorizontalStack: CGFloat = -24.0
+  static let insetOfHorizontalStack: CGFloat = 24.0
+  
+  static let hidden: CGFloat = 0.0
+  static let visible: CGFloat = 1.0
+  
+  // Other screen
 }
 
 // Enum for app localization

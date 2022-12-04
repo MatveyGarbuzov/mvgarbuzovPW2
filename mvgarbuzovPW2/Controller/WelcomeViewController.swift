@@ -87,8 +87,8 @@ final class WelcomeViewController: UIViewController {
 
     view.addSubview(horizontalStack)
     horizontalStack.snp.makeConstraints { make in
-      make.height.equalTo(48)
-      make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
+      make.height.equalTo(Const.sizeOfCenterButtonsOnMainScreen)
+      make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(Const.insetOfCenterButtonsOnMainScreen)
       make.center.equalTo(view.center)
     }
   }
@@ -96,7 +96,7 @@ final class WelcomeViewController: UIViewController {
   private func setupValueLabel() {
     view.addSubview(valueLabel)
 
-    valueLabel.font = UIFont.systemFont(ofSize: 40.0, weight: .bold)
+    valueLabel.font = UIFont.systemFont(ofSize: Const.sizeOfFontValueLabel, weight: .bold)
     valueLabel.textColor = UIColor.black
     valueLabel.text = String(value)
 
@@ -108,29 +108,22 @@ final class WelcomeViewController: UIViewController {
 
   private func setupCommentView() {
     commentView.backgroundColor = UIColor.white
-    commentView.layer.cornerRadius = 12
+    commentView.layer.cornerRadius = Const.cornerRadiusOfCommentView
 
     view.addSubview(commentView)
     commentView.snp.makeConstraints { make in
       make.top.equalTo(view.safeAreaLayoutGuide)
-      make.leading.trailing.equalToSuperview().inset(24)
+      make.leading.trailing.equalToSuperview().inset(Const.insetOfCommentView)
     }
 
-    commentLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
+    commentLabel.font = UIFont.systemFont(ofSize: Const.sizeOfFontCommentLabel, weight: .regular)
     commentLabel.textColor = UIColor.systemGray
     commentLabel.numberOfLines = 0
     commentLabel.textAlignment = .center
 
     commentView.addSubview(commentLabel)
     commentLabel.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(
-        UIEdgeInsets(
-          top: 16,
-          left: 16,
-          bottom: 16,
-          right: 16
-        )
-      )
+      make.edges.equalToSuperview().inset(16)
     }
   }
   
@@ -175,7 +168,7 @@ final class WelcomeViewController: UIViewController {
     guard let button = sender as? UIButton else { return }
     button.isEnabled = false
 
-    button.layer.cornerRadius = Const.Sizes.buttonCornerRadiusPressed
+    button.layer.cornerRadius = Const.cornerRadiusOfButtonPressed
 
     button.backgroundColor = UIColor(
       red: 0.85,
@@ -186,7 +179,7 @@ final class WelcomeViewController: UIViewController {
 
     UIView.animate(withDuration: Const.animationDuration, animations: {
       button.alpha = 1
-      button.layer.cornerRadius = Const.Sizes.buttonCornerRadius
+      button.layer.cornerRadius = Const.cornerRadiusOfButton
       button.backgroundColor = .white
     }) { completion in
       button.isEnabled = true
@@ -206,7 +199,7 @@ final class WelcomeViewController: UIViewController {
 
   private func makeHorizontalStack(views: [UIView]) -> UIStackView {
     let stackView = UIStackView(arrangedSubviews: views)
-    stackView.spacing = 12
+    stackView.spacing = Const.spacingOfHorizontalStack
     stackView.axis = .horizontal
     stackView.distribution = .fillEqually
 
@@ -229,8 +222,8 @@ final class WelcomeViewController: UIViewController {
 
     view.addSubview(buttonsStackView)
     buttonsStackView.snp.makeConstraints { make in
-      make.leading.trailing.equalToSuperview().inset(24)
-      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-24)
+      make.leading.trailing.equalToSuperview().inset(Const.insetOfHorizontalStack)
+      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(Const.bottomOffsetOfHorizontalStack)
     }
   }
 
@@ -298,7 +291,7 @@ final class WelcomeViewController: UIViewController {
     buttonPressed(sender: sender)
 
     UIView.animate(withDuration: Const.animationDuration) {
-      self.colorPaletteView.alpha = self.colorPaletteView.isEnabled ? 0 : 1
+      self.colorPaletteView.alpha = self.colorPaletteView.isEnabled ? Const.hidden : Const.visible
     }
     self.colorPaletteView.isEnabled.toggle()
     changeColor(colorPaletteView)
@@ -328,7 +321,7 @@ final class WelcomeViewController: UIViewController {
 extension WelcomeViewController: ChangeColorDelegate {
   @objc func changeColor(_ slider: ColorPaletteView) {
     print("CHANGE COLOR!")
-    UIView.animate(withDuration: 0.5) {
+    UIView.animate(withDuration: Const.animationDuration) {
       self.view.backgroundColor = slider.chosenColor
     }
   }
