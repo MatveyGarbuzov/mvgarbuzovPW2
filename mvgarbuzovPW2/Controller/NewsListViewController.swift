@@ -62,7 +62,7 @@ final class NewsListViewController: UIViewController {
       action: #selector(refresh)
     )
   }
-  
+  //
   private func setTableViewUI() {
     view.addSubview(tableView)
     tableView.backgroundColor = .clear
