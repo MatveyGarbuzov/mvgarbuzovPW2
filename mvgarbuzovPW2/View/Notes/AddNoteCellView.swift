@@ -27,6 +27,15 @@ final class AddNoteCellView: UITableViewCell {
     return textView
   }()
   
+  var placeholderLabel: UILabel = {
+    let label = UILabel()
+    label.text = "Enter some text..."
+    label.sizeToFit()
+    label.textColor = .tertiaryLabel
+    
+    return label
+  }()
+  
   private let addButton: UIButton = {
     let button = UIButton()
     button.setTitle("Add new note", for: .normal)
@@ -57,6 +66,13 @@ final class AddNoteCellView: UITableViewCell {
   }
   
   private func setupView() {
+    textView.delegate = self
+    placeholderLabel.font = .italicSystemFont(ofSize: (textView.font?.pointSize)!)
+    textView.addSubview(placeholderLabel)
+    placeholderLabel.textColor = .tertiaryLabel
+    placeholderLabel.frame.origin = CGPoint(x: 5, y: (textView.font?.pointSize)! / 2)
+    placeholderLabel.isHidden = !textView.text.isEmpty
+    
     let stackView = UIStackView(arrangedSubviews: [textView, addButton])
     stackView.axis = .vertical
     stackView.distribution = .fill
@@ -83,3 +99,9 @@ final class AddNoteCellView: UITableViewCell {
   }
 }
 
+
+extension AddNoteCellView : UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !textView.text.isEmpty
+    }
+}
