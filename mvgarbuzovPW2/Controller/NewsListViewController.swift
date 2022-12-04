@@ -55,6 +55,12 @@ final class NewsListViewController: UIViewController {
       target: self,
       action: #selector(goBack)
     )
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      image: UIImage(systemName: "arrow.counterclockwise"),
+      style: .plain,
+      target: self,
+      action: #selector(refresh)
+    )
   }
   
   private func setTableViewUI() {
@@ -101,6 +107,11 @@ final class NewsListViewController: UIViewController {
   
   @objc private func goBack() {
     _ = navigationController?.popViewController(animated: true)
+  }
+  
+  @objc private func refresh() {
+    showSkeleton()
+    self.fetchNews()
   }
 }
 
