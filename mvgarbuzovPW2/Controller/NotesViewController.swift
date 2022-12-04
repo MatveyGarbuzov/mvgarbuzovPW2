@@ -11,12 +11,7 @@ import UIKit
 final class NotesViewController: UIViewController {
   
   private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-  //  private var dataSource = [ShortNote]()
-  private var dataSource = [
-    ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu."),
-    ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu."),
-    ShortNote(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus aliquam blandit liberobibendum id bibendum nisl. Nunc a sedvestibulum, arcu.")
-  ]
+  private let userDefaults = UserDefaults.standard
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -34,15 +29,16 @@ final class NotesViewController: UIViewController {
   }
   
   private func setupTableView() {
-    tableView.register(NoteCell.self, forCellReuseIdentifier:
-                        NoteCell.reuseIdentifier)
-    tableView.register(AddNoteCell.self, forCellReuseIdentifier: AddNoteCell.reuseIdentifier)
-    view.addSubview(tableView)
+    tableView.register(NoteCellView.self, forCellReuseIdentifier:
+                        NoteCellView.reuseIdentifier)
+    tableView.register(AddNoteCellView.self, forCellReuseIdentifier: AddNoteCellView.reuseIdentifier)
+    
     tableView.backgroundColor = .clear
     tableView.keyboardDismissMode = .onDrag
     tableView.dataSource = self
     tableView.delegate = self
-    tableView.estimatedRowHeight = 300
+    
+    view.addSubview(tableView)
     tableView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
@@ -59,7 +55,7 @@ final class NotesViewController: UIViewController {
   }
   
   private func handleDelete(indexPath: IndexPath) {
-    dataSource.remove(at: indexPath.row)
+    userDefaults.dataSource.remove(at: indexPath.row)
     tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
   }
   
@@ -79,7 +75,7 @@ extension NotesViewController: UITableViewDataSource {
     case 0:
       return 1
     default:
-      return dataSource.count
+      return userDefaults.dataSource.count
     }
   }
   
@@ -88,16 +84,16 @@ extension NotesViewController: UITableViewDataSource {
     switch indexPath.section {
     case 0:
       if let addNewCell = tableView.dequeueReusableCell(
-        withIdentifier: AddNoteCell.reuseIdentifier, for: indexPath) as? AddNoteCell {
+        withIdentifier: AddNoteCellView.reuseIdentifier, for: indexPath) as? AddNoteCellView {
         addNewCell.delegate = self
         addNewCell.selectionStyle = .none
         return addNewCell
       }
       
     default:
-      let note = dataSource[indexPath.row]
+      let note = userDefaults.dataSource[indexPath.row]
       if let noteCell = tableView.dequeueReusableCell(
-        withIdentifier: NoteCell.reuseIdentifier, for: indexPath) as? NoteCell {
+        withIdentifier: NoteCellView.reuseIdentifier, for: indexPath) as? NoteCellView {
         noteCell.configure(note: note)
         return noteCell
       }
@@ -116,14 +112,8 @@ extension NotesViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if indexPath.section != 0 {
+    if indexPath.section == 1 {
       if self.tableView.indexPathForSelectedRow?.row == indexPath.row {
-        //        let indexPath = tableView.indexPathForSelectedRow
-        //        let currentCell = tableView.cellForRow(at: indexPath!)! as! NoteCell
-        
-        //        print(currentCell.textView.text)
-        
-        // КОСТЫЛЬ, НО ТУТ МОЖНО СДЕЛАТЬ ВЫДВИГАЮЩИЙСЯ СНИЗУ TEXTVIEW В КОТОРЫЙ ИЗНАЧАЛЬНО БУДЕТ ПЕРЕДАВАТЬСЯ ТЕКСТ ИЗ ЯЧЕЙКИ И ЕГО МОЖНО БУДЕТ ПОМЕНЯТЬ, ПОМЕНЯВ ТЕКСТ В ЯЧЕЙКЕ
         return UITableView.automaticDimension // Expanded size of cell
       } else {
         return 48 // Collapsed size of cell
@@ -135,7 +125,7 @@ extension NotesViewController: UITableViewDataSource {
 
 extension NotesViewController: AddNoteDelegate {
   func newNoteAdded(note: ShortNote) {
-    dataSource.insert(note, at: 0)
+    userDefaults.dataSource.insert(note, at: 0)
     tableView.reloadData()
   }
 }
@@ -160,5 +150,17 @@ extension NotesViewController: UITableViewDelegate {
       return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     return UISwipeActionsConfiguration()
+  }
+}
+
+extension UserDefaults {
+  var dataSource: [ShortNote] {
+    get {
+      guard let data = UserDefaults.standard.data(forKey: "notes") else { return [] }
+      return (try? PropertyListDecoder().decode([ShortNote].self, from: data)) ?? []
+    }
+    set {
+      UserDefaults.standard.set(try? PropertyListEncoder().encode(newValue), forKey: "notes")
+    }
   }
 }

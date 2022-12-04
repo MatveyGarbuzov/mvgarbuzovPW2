@@ -1,5 +1,5 @@
 //
-//  NewsCell.swift
+//  NewsCellView.swift
 //  mvgarbuzovPW2
 //
 //  Created by Matvey Garbuzov on 04.11.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class NewsCell: UITableViewCell {
+final class NewsCellView: UITableViewCell {
   
   static let reuseIdentifier = "NewsCell"
   private let newsImageView = UIImageView()

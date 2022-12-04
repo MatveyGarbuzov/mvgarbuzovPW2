@@ -1,19 +1,19 @@
+////
+////  ViewController.swift
+////  mvgarbuzovPW2
+////
+////  Created by Matvey Garbuzov on 20.09.2022.
+////
 //
-//  ViewController.swift
-//  mvgarbuzovPW2
+//import UIKit
 //
-//  Created by Matvey Garbuzov on 20.09.2022.
+//class ViewController: UIViewController {
 //
-
-import UIKit
-
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
-    
-}
-
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//    }
+//
+//
+//}
+//

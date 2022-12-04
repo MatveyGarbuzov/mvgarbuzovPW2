@@ -8,42 +8,6 @@
 import Foundation
 import UIKit
 
-final class NewsViewModel {
-  let title: String
-  let description: String
-  let imageURL: URL?
-  var imageData: Data? = nil
-  init(title: String, description: String, imageURL: URL?) {
-    self.title = title
-    self.description = description
-    self.imageURL = imageURL
-  }
-}
-
-enum Model {
-  struct News: Decodable{
-    let status: String
-    let totalResults: Int
-    let articles: [Article]
-  }
-  
-  struct Article: Decodable{
-    let source: Source
-    let author: String?
-    let title: String
-    let description: String?
-    let url: String
-    let urlToImage: String?
-    let publishedAt: String
-    let content: String?
-  }
-  
-  struct Source: Decodable {
-    let id: String?
-    let name: String
-  }
-}
-
 final class NewsListViewController: UIViewController {
   
   private let tableView = UITableView(frame: .zero, style: .plain)
@@ -110,7 +74,7 @@ final class NewsListViewController: UIViewController {
   }
   
   private func setTableViewCell() {
-    tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.reuseIdentifier)
+    tableView.register(NewsCellView.self, forCellReuseIdentifier: NewsCellView.reuseIdentifier)
   }
   
   private func fetchNews() {
@@ -131,12 +95,12 @@ final class NewsListViewController: UIViewController {
     }
   }
   
-  @objc private func goBack() {
-    _ = navigationController?.popViewController(animated: true)
-  }
-  
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
+  }
+  
+  @objc private func goBack() {
+    _ = navigationController?.popViewController(animated: true)
   }
 }
 
@@ -152,13 +116,13 @@ extension NewsListViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if isLoading {
-      if let newsCell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseIdentifier, for: indexPath) as? NewsCell{
+      if let newsCell = tableView.dequeueReusableCell(withIdentifier: NewsCellView.reuseIdentifier, for: indexPath) as? NewsCellView{
         return newsCell
       }
     } else {
       let viewModel = newsViewModels[indexPath.row]
       if let newsCell = tableView.dequeueReusableCell(
-        withIdentifier: NewsCell.reuseIdentifier, for: indexPath) as? NewsCell {
+        withIdentifier: NewsCellView.reuseIdentifier, for: indexPath) as? NewsCellView {
         hideSkeleton()
         newsCell.configure(viewModel)
         return newsCell

@@ -1,5 +1,5 @@
 //
-//  SkeletonCell.swift
+//  SkeletonCellView.swift
 //  mvgarbuzovPW2
 //
 //  Created by Matvey Garbuzov on 04.12.2022.

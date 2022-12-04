@@ -19,7 +19,8 @@ final class ColorPaletteView: UIControl {
   
   init() {
     super.init(frame: .zero)
-    setupView()
+    setup()
+    setupColorSlidersStack()
   }
   
   @available(*, unavailable)
@@ -27,7 +28,12 @@ final class ColorPaletteView: UIControl {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func setupView() {
+  public func setup() {
+    self.alpha = 0
+    self.isEnabled = false
+  }
+  
+  private func setupColorSlidersStack() {
     let redControl = ColorSliderView(
       colorName: "R", value: Float(chosenColor.redComponent))
     let greenControl = ColorSliderView(
@@ -129,11 +135,4 @@ extension ColorPaletteView {
       sendActions(for: .touchDragInside)
     }
   }
-}
-
-extension UIColor {
-  var redComponent: CGFloat{ return CIColor(color: self).red }
-  var greenComponent: CGFloat{ return CIColor(color: self).green }
-  var blueComponent: CGFloat{ return CIColor(color: self).blue }
-  var alphaComponent: CGFloat{ return CIColor(color: self).alpha }
 }

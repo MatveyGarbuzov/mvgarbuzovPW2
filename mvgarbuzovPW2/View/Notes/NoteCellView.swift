@@ -1,5 +1,5 @@
 //
-//  NoteCell.swift
+//  NoteCellView.swift
 //  mvgarbuzovPW2
 //
 //  Created by Matvey Garbuzov on 01.11.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class NoteCell: UITableViewCell {
+final class NoteCellView: UITableViewCell {
   
   private lazy var textView = UILabel() // UITextView()
   

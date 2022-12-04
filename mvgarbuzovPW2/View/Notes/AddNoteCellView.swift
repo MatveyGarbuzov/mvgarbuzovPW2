@@ -1,5 +1,5 @@
 //
-//  AddNoteCell.swift
+//  AddNoteCellView.swift
 //  mvgarbuzovPW2
 //
 //  Created by Matvey Garbuzov on 01.11.2022.
@@ -12,9 +12,10 @@ protocol AddNoteDelegate: AnyObject {
   func newNoteAdded(note: ShortNote)
 }
 
-final class AddNoteCell: UITableViewCell {
+final class AddNoteCellView: UITableViewCell {
   
   static let reuseIdentifier = "AddNoteCell"
+  var delegate: AddNoteDelegate?
   
   private let textView: UITextView = {
     let textView = UITextView()
@@ -43,7 +44,6 @@ final class AddNoteCell: UITableViewCell {
     
     return button
   }()
-  var delegate: AddNoteDelegate?
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)

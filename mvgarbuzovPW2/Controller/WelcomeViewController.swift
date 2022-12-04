@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 
-final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
+final class WelcomeViewController: UIViewController {
 
   // MARK: - Fields
   private let commentView = UIView()
@@ -38,13 +38,7 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
   private func setupView() {
     view.backgroundColor = .systemGray6
 
-    setupIncrementButton()
-    setupLocalizationButton()
-    setupCenterButtons()
-    setupValueLabel()
-    setupCommentView()
-    setupMenuButtons()
-    setupColorControlSV()
+    setupViews()
 
     updateUI()
   }
@@ -53,19 +47,13 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
 
   private func setupColorControlSV() {
     view.addSubview(colorPaletteView)
-    colorPaletteView.alpha = 0
-    colorPaletteView.isEnabled = false
-
+    
     colorPaletteView.snp.makeConstraints { make in
       make.top.equalTo(incrementButton.snp.bottom).offset(8)
       make.leading.equalToSuperview().offset(24)
       make.trailing.equalToSuperview().offset(-24)
       make.bottom.equalTo(buttonsStackView.snp.top).offset(-8)
     }
-  }
-
-  private func setupNotesView() {
-
   }
 
   // Setup default language in app
@@ -144,6 +132,16 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
         )
       )
     }
+  }
+  
+  private func setupViews() {
+    setupIncrementButton()
+    setupLocalizationButton()
+    setupCenterButtons()
+    setupValueLabel()
+    setupCommentView()
+    setupMenuButtons()
+    setupColorControlSV()
   }
 
   private func updateCommentLabel(value: Int) {
@@ -244,10 +242,16 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
       self.incrementButton.setTitle("buttonTitle".localized, for: .normal)
       self.localizationButton.setTitle("language".localized, for: .normal)
     }
-    UIView.transition(with: commentLabel, duration: Const.animationDuration, options: .transitionFlipFromTop, animations: animation, completion: nil)
-    UIView.transition(with: valueLabel, duration: Const.animationDuration, options: .transitionFlipFromBottom, animations: animation, completion: nil)
-    UIView.transition(with: incrementButton, duration: Const.animationDuration, options: .transitionCrossDissolve, animations: animation, completion: nil)
-    UIView.transition(with: localizationButton, duration: Const.animationDuration, options: .transitionCrossDissolve, animations: animation, completion: nil)
+    
+    let array = [commentLabel, valueLabel, incrementButton, localizationButton]
+    array.forEach { view in
+      UIView.transition(
+        with: view,
+        duration: Const.animationDuration,
+        options: .transitionCrossDissolve,
+        animations: animation, completion: nil
+      )
+    }
   }
 
   // create vibration feedback
@@ -319,12 +323,6 @@ final class WelcomeViewController: UIViewController, ConstraintRelatableTarget {
     let newsListController = NewsListViewController()
     navigationController?.pushViewController(newsListController, animated: true)
   }
-
-//  @objc private func changeColor(_ slider: ColorPaletteView) {
-//    UIView.animate(withDuration: 0.5) {
-//      self.view.backgroundColor = slider.chosenColor
-//    }
-//  }
 }
 
 extension WelcomeViewController: ChangeColorDelegate {
